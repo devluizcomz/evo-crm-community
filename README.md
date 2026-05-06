@@ -206,6 +206,14 @@ All inter-service communication uses Bearer token authentication. The token issu
 
 ---
 
+## Hosting
+
+Deploy Evo CRM Community with optimized infrastructure through our HostGator partnership:
+
+[**Evo CRM VPS — HostGator**](https://evolution-api.com/vps-evo-crm)
+
+---
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or pull request in the relevant submodule repository. See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
