@@ -154,7 +154,7 @@ services:
       start_period: 120s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.evo-crm-api-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_CRM_API:-api-evocrm.devluiz.com.br`)"
+      - "traefik.http.routers.evo-crm-api-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_CRM_API:-api-evocrm.devluiz.com.br}`)"
       - "traefik.http.routers.evo-crm-api-${ENV_NAME:-prod}.entrypoints=websecure"
       - "traefik.http.routers.evo-crm-api-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
       - "traefik.http.services.evo-crm-api-${ENV_NAME:-prod}.loadbalancer.server.port=3000"
@@ -224,7 +224,7 @@ services:
       start_period: 30s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.evo-core-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_CORE:-core-evocrm.devluiz.com.br`)"
+      - "traefik.http.routers.evo-core-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_CORE:-core-evocrm.devluiz.com.br}`)"
       - "traefik.http.routers.evo-core-${ENV_NAME:-prod}.entrypoints=websecure"
       - "traefik.http.routers.evo-core-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
       - "traefik.http.services.evo-core-${ENV_NAME:-prod}.loadbalancer.server.port=5555"
@@ -302,7 +302,7 @@ services:
       start_period: 15s
 
   # ---------------------------------------------------------------------------
-  # ClickHouse (analytics store for EvoFlow)
+  # ClickHouse
   # ---------------------------------------------------------------------------
   clickhouse:
     image: clickhouse/clickhouse-server:latest
@@ -425,11 +425,21 @@ services:
       - "traefik.http.routers.evo-frontend-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
       - "traefik.http.services.evo-frontend-${ENV_NAME:-prod}.loadbalancer.server.port=80"
 
+# =============================================================================
+# BLOCO GLOBAL DE VOLUMES CORRIGIDO (Camada que o Traefik/Compose valida)
+# =============================================================================
 volumes:
   postgres_data:
+    name: "evo-${ENV_NAME:-prod}_postgres_data"
   redis_data:
+    name: "evo-${ENV_NAME:-prod}_redis_data"
   crm_bundle:
+    name: "evo-${ENV_NAME:-prod}_crm_bundle"
   crm_node_modules:
+    name: "evo-${ENV_NAME:-prod}_crm_node_modules"
   crm_cache:
+    name: "evo-${ENV_NAME:-prod}_crm_cache"
   processor_logs:
+    name: "evo-${ENV_NAME:-prod}_processor_logs"
   clickhouse_data:
+    name: "evo-${ENV_NAME:-prod}_clickhouse_data"
