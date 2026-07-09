@@ -84,10 +84,10 @@ services:
       start_period: 90s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.evo-auth.rule=Host(`auth-evocrm.devluiz.com.br`)"
-      - "traefik.http.routers.evo-auth.entrypoints=websecure"
-      - "traefik.http.routers.evo-auth.tls.certresolver=letsencrypt"
-      - "traefik.http.services.evo-auth.loadbalancer.server.port=3001"
+      - "traefik.http.routers.evo-auth-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_AUTH:-auth-evocrm.devluiz.com.br}`)"
+      - "traefik.http.routers.evo-auth-${ENV_NAME:-prod}.entrypoints=websecure"
+      - "traefik.http.routers.evo-auth-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.evo-auth-${ENV_NAME:-prod}.loadbalancer.server.port=3001"
 
   evo-auth-sidekiq:
     build:
@@ -154,10 +154,10 @@ services:
       start_period: 120s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.evo-crm-api.rule=Host(`api-evocrm.devluiz.com.br`)"
-      - "traefik.http.routers.evo-crm-api.entrypoints=websecure"
-      - "traefik.http.routers.evo-crm-api.tls.certresolver=letsencrypt"
-      - "traefik.http.services.evo-crm-api.loadbalancer.server.port=3000"
+      - "traefik.http.routers.evo-crm-api-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_CRM_API:-api-evocrm.devluiz.com.br`)"
+      - "traefik.http.routers.evo-crm-api-${ENV_NAME:-prod}.entrypoints=websecure"
+      - "traefik.http.routers.evo-crm-api-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.evo-crm-api-${ENV_NAME:-prod}.loadbalancer.server.port=3000"
 
   evo-crm-sidekiq:
     build:
@@ -222,6 +222,12 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.evo-core-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_CORE:-core-evocrm.devluiz.com.br`)"
+      - "traefik.http.routers.evo-core-${ENV_NAME:-prod}.entrypoints=websecure"
+      - "traefik.http.routers.evo-core-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.evo-core-${ENV_NAME:-prod}.loadbalancer.server.port=5555"
 
   # ---------------------------------------------------------------------------
   # Processor Service (Python / FastAPI)
@@ -262,10 +268,10 @@ services:
       start_period: 30s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.evo-processor.rule=Host(`processor-evocrm.devluiz.com.br`)"
-      - "traefik.http.routers.evo-processor.entrypoints=websecure"
-      - "traefik.http.routers.evo-processor.tls.certresolver=letsencrypt"
-      - "traefik.http.services.evo-processor.loadbalancer.server.port=8000"
+      - "traefik.http.routers.evo-processor-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_PROCESSOR:-processor-evocrm.devluiz.com.br}`)"
+      - "traefik.http.routers.evo-processor-${ENV_NAME:-prod}.entrypoints=websecure"
+      - "traefik.http.routers.evo-processor-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.evo-processor-${ENV_NAME:-prod}.loadbalancer.server.port=8000"
 
   # ---------------------------------------------------------------------------
   # Bot Runtime (Go / Gin)
@@ -377,6 +383,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.evo-flow-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_FLOW:-flow-evocrm.devluiz.com.br}`)"
+      - "traefik.http.routers.evo-flow-${ENV_NAME:-prod}.entrypoints=websecure"
+      - "traefik.http.routers.evo-flow-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.evo-flow-${ENV_NAME:-prod}.loadbalancer.server.port=3334"
 
   # ---------------------------------------------------------------------------
   # Frontend (React / Vite / Nginx)
@@ -408,10 +420,10 @@ services:
       start_period: 15s
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.evo-frontend.rule=Host(`evocrm.devluiz.com.br`)"
-      - "traefik.http.routers.evo-frontend.entrypoints=websecure"
-      - "traefik.http.routers.evo-frontend.tls.certresolver=letsencrypt"
-      - "traefik.http.services.evo-frontend.loadbalancer.server.port=80"
+      - "traefik.http.routers.evo-frontend-${ENV_NAME:-prod}.rule=Host(`${DOMAIN_FRONTEND:-evocrm.devluiz.com.br}`)"
+      - "traefik.http.routers.evo-frontend-${ENV_NAME:-prod}.entrypoints=websecure"
+      - "traefik.http.routers.evo-frontend-${ENV_NAME:-prod}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.evo-frontend-${ENV_NAME:-prod}.loadbalancer.server.port=80"
 
 volumes:
   postgres_data:
